@@ -475,9 +475,8 @@
         "selectLanguage": true,
         "availableLocales": [
             "en",
-            "es",
             "fr",
-            "pt"
+            "es-MX"
         ],
         "monacoColors": {
             "editor.background": "#ecf0f1"
