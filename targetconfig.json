@@ -199,8 +199,11 @@
         ]
     },
     "galleries": {
-        "Tutorials": "tutorials",
-        "Live Coding": "live-coding",
+        "Micro:Bit Tutorials": "tutorials",
+        "b.Board Tutorials": "projects/bboard",
+        "": "projects/bboard2",
+        "  ": "projects/bboard3",
+        "    ": "projects/bboard4",
         "Games": "projects/games",
         "Radio Games": "projects/radio-games",
         "Fashion": "projects/fashion",
