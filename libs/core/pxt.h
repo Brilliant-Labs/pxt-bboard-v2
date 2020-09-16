@@ -39,8 +39,6 @@ static inline ImageData *imageBytes(ImageLiteral_ lit) {
 #define Button MButton
 #endif
 
-typedef MicroBitPin DevicePin;
-
 typedef RefMImage *Image;
 
 extern MicroBit uBit;
