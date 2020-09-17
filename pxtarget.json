@@ -1,9 +1,9 @@
 {
-    "id": "microbit",
-    "nickname": "microbit",
-    "name": "makecode.microbit.org",
-    "title": "Microsoft MakeCode for micro:bit",
-    "description": "A Blocks / JavaScript code editor for the micro:bit powered by Microsoft MakeCode.",
+    "id": "bBoard",
+    "nickname": "bBoard",
+    "name": "code.brilliantlab.ca",
+    "title": "Brilliant Labs bBoard for micro:bit with MakeCode",
+    "description": "bBoard IDE for the micro:bit powered by Microsoft MakeCode.",
     "corepkg": "core",
     "bundleddirs": [
         "libs/core",
@@ -312,7 +312,7 @@
     },
     "appTheme": {
         "accentColor": "#5C005C",
-        "logoUrl": "https://microbit.org/",
+        "logoUrl": "https://brilliantlabs.ca/",
         "logo": "./static/logo.portrait.white.svg",
         "docsLogo": "./static/logo.square.white.svg",
         "portraitLogo": "./static/logo.square.white.svg",
@@ -329,7 +329,7 @@
         "shareUrl": "https://makecode.microbit.org/",
         "privacyUrl": "https://makecode.com/privacy",
         "termsOfUseUrl": "https://makecode.com/termsofuse",
-        "githubUrl": "https://github.com/Microsoft/pxt-microbit",
+        "githubUrl": "https://github.com/BrilliantLabs/bl-bboard-ide-v2.git",
         "boardName": "micro:bit",
         "boardNickname": "micro:bit",
         "driveDisplayName": "MICROBIT",
@@ -350,7 +350,8 @@
             "bluetoothUartConsole",
             "bluetoothPartialFlashing",
             "simScreenshot",
-            "simGif"
+            "simGif",
+            "qrCode"
         ],
         "bluetoothUartFilters": [
             {
@@ -365,6 +366,14 @@
             {
                 "name": "Reference",
                 "path": "/reference"
+            },
+            {
+                "name": "Blocks",
+                "path": "/blocks"
+            },
+            {
+                "name": "JavaScript",
+                "path": "/javascript"
             },
             {
                 "name": "Hardware",
@@ -475,8 +484,31 @@
         "selectLanguage": true,
         "availableLocales": [
             "en",
+            "ar",
+            "cs",
+            "da",
+            "de",
+            "el",
+            "es-ES",
+            "fi",
             "fr",
-            "es-MX"
+            "hu",
+            "is",
+            "it",
+            "ja",
+            "ko",
+            "nl",
+            "no",
+            "pt-BR",
+            "pt-PT",
+            "ru",
+            "si-LK",
+            "sk",
+            "sv-SE",
+            "tr",
+            "uk",
+            "zh-CN",
+            "zh-TW"
         ],
         "monacoColors": {
             "editor.background": "#ecf0f1"
