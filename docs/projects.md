@@ -10,19 +10,27 @@
     },
     {
         "name": "b.Board Tutorials",
-        "url": "/projects/bboard"
+        "url": "/projects/bboard",
+        "imageUrl": "docs/static/mb/projects/button-g/button_g.jpg",
+        "largeImageUrl": "docs/static/mb/projects/button-g/cover.gif"
     },
     {
         "name": "",
-        "url": "/projects/bboard2"
+        "url": "/projects/bboard2",
+        "imageUrl": "docs/static/mb/projects/motion/motion-click.jpg",
+        "largeImageUrl": "docs/static/mb/projects/motion/motion_gif.gif"
     },
     {
         "name": "  ",
-        "url": "/projects/bboard3"
+        "url": "/projects/bboard3",
+        "imageUrl": "docs/static/mb/projects/stepper-5/stepper-5-click.jpg",
+        "largeImageUrl": "docs/static/mb/projects/stepper-5/steppergif.gif"
     },
     {
         "name": "    ",
-        "url": "/projects/bboard4"
+        "url": "/projects/bboard4",
+        "imageUrl": "docs/static/mb/projects/touchpad/touchpad-click.jpg",
+        "largeImageUrl": "docs/static/mb/projects/touchpad/touchpadgif.gif"
     },
     {
         "name": "Games",

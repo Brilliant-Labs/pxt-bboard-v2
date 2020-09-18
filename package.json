@@ -1,7 +1,7 @@
 {
-    "name": "pxt-microbit",
+    "name": "pxt-bboard",
     "version": "3.1.3",
-    "description": "micro:bit target for Microsoft MakeCode (PXT)",
+    "description": "BL b.Board for micro:bit target based on Microsoft MakeCode",
     "keywords": [
         "JavaScript",
         "education",
@@ -9,7 +9,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Microsoft/pxt-microbit.git"
+        "url": "git+https://github.com/Brilliant-Labs/pxt-microbit-v2.git"
     },
   "author": "Brilliant Labs",
     "license": "MIT",
