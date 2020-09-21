@@ -51,16 +51,7 @@
         "fixed.ts",
         "templates.ts",
         "parts/speaker.svg",
-        "parts/headphone.svg",
-        "bBoard.ts",
-        "LCD_Mini.ts",
-        "force.ts",
-        "Relay.ts",
-        "airquality2.ts",
-        "Button_G.ts",
-        "Servo.ts",
-        "WiFi_BLE.ts"
-
+        "parts/headphone.svg"
     ],
     "public": true,
     "dependencies": {},
