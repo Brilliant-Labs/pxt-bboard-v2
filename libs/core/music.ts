@@ -487,13 +487,10 @@ namespace music {
     }
 
     /**
-     * Returns the current output volume of the sound synthesizer.
+     * Gets the current volume
      */
-    //% blockId=synth_get_volume block="volume"
     //% parts="speaker"
-    //% help=music/volume
-    //% weight=69
-    //% group="Volume"
+    //% weight=70
     export function volume(): number {
         return pins.analogPitchVolume();
     }

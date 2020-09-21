@@ -5,75 +5,78 @@
 // Configuring command messages...
 
 
-enum clickBoardID{
+const enum clickBoardID{
 
-    //% block="1"
+    //% block="b.Board"
+    zero = 0,
+    //% block="Expansion 1"
     one = 1,
-    //% block="2"
+    //% block="Expansion 2"
     two,
-    //% block="3"
+    //% block="Expansion 3"
     three,
-    //% block="4"
+    //% block="Expansion 4"
     four,
-    //% block="5"
+    //% block="Expansion 5"
     five,
-    //% block="6"
+    //% block="Expansion 6"
     six,
-    //% block="7"
+    //% block="Expansion 7"
     seven,
-    //% block="8"
+    //% block="Expansion 8"
     eight,
-        //% block="9"
-        nine, 
-        //% block="10"
+    //% block="Expansion 9"
+    nine, 
+        //% block="Expansion 10"
         ten,
-        //% block="11"
+        //% block="Expansion 11"
         eleven,
-        //% block="12"
+        //% block="Expansion 12"
         twelve,
-        //% block="13"
+        //% block="Expansion 13"
         thirteen,
-        //% block="14"
+        //% block="Expansion 14"
         fourteen,
-        //% block="15"
+        //% block="Expansion 15"
         fifteen,
-        //% block="16"
+        //% block="Expansion 16"
         sixteen,
-        //% block="17"
-    seventeen,
-    //% block="18"
-    eighteen,
-        //% block="19"
+        //% block="Expansion 17"
+        seventeen,
+        //% block="Expansion 18"
+        eighteen,
+        //% block="Expansion 19"
         nineteen, 
-        //% block="20"
-        twenty,
-        //% block="21"
-        twentyone,
-        //% block="22"
-        twentytwo,
-        //% block="23"
-        twentythree,
-        //% block="24"
-        twentyfour,
-        //% block="25"
-        twentyfive,
-        //% block="26"
-        twentysix,
-          //% block="27"
-          twentyseven,
-          //% block="28"
-          twentyeight,
-          //% block="29"
-          twentynine,
-          //% block="30"
-          thirty,
-           //% block="31"
-           thirtyone,
-           //% block="32"
-           thirtytwo
+        //% block="Expansion 20"
+        Twenty
 
 }
 
+
+const enum clickBoardSlot{
+    //% block="Peripheral"
+    default=0,
+
+    //% block="A"
+    A = 100,
+
+    //% block="B"
+    B=200
+
+}
+// function checkifexists(): number{
+//     let retval=25;
+//     for (var _i = 2; _i < 24; _i++) {
+//         if(bBoard.arrayClick.indexOf(_i) !== -1){
+//             retval= 25;
+//         }
+//         else{
+//             retval= _i;
+//         }
+//     }
+//     console.log("RetVal "+retval)
+//     return retval;
+// }
 
 enum clickIOPin {
 
@@ -143,6 +146,24 @@ output = 2
 
 }
 
+enum moduleIDs
+{
+
+    // Module Ids
+GPIO_module_id = 1,
+ UART_module_id = 2,
+ I2C_module_id = 4,
+ SPI_module_id = 5,
+ MOTOR_module_id = 6,
+ MIC_module_id = 7,
+ PWM_module_id = 8,
+ ADC_module_id = 9,
+ MUSIC_module_id = 10,
+ EEPROM_module_id = 0xD,
+ NEOPIXEL_module_id = 0xE,
+ STATUS_module_id = 0x10
+}
+
 /**
  * Custom clickBoard
  */
@@ -156,53 +177,56 @@ output = 2
 namespace bBoard {
     export let arrayClick: clickBoardID[]=[]
 
-       //% block="create IO settings"
+ //   export let arrayClickList: clickBoardID[]=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    //% block=" $clickBoardNum $clickSlot"
+    //% inlineInputMode=inline
     //% blockSetVariable="IOSettings"
     //% group="IO"
     //% weight=110
-    export function createIOSettings(): IOSettings {
-        return new IOSettings();
+    export function createIOSettings(clickBoardNum:clickBoardID, clickSlot:clickBoardSlot): IOSettings {
+        return new IOSettings(clickBoardNum, clickSlot);
    }
 
-      //% block="create PWM settings"
+    //% block=" $clickBoardNum $clickSlot"
     //% blockSetVariable="PWMSettings"
     //% group="PWM"
     //% weight=110
-    export function createPWMSettings(): PWMSettings {
-        return new PWMSettings();
+    export function createPWMSettings(clickBoardNum:clickBoardID, clickSlot:clickBoardSlot): PWMSettings {
+        return new PWMSettings(clickBoardNum, clickSlot);
    }
 
-      //% block="create UART settings"
+    //% block=" $clickBoardNum $clickSlot"
     //% blockSetVariable="UARTSettings"
     //% group="UART"
     //% weight=110
-    export function createUARTSettings(): UARTSettings {
-        return new UARTSettings();
+    export function createUARTSettings(clickBoardNum:clickBoardID, clickSlot:clickBoardSlot): UARTSettings {
+        return new UARTSettings(clickBoardNum, clickSlot);
    }
 
-    //% block="create I2C settings"
+    //% block=" $clickBoardNum $clickSlot"
     //% blockSetVariable="I2CSettings"
     //% group="I2C"
     //% weight=110
-    export function createI2cSettings(): I2CSettings {
-        return new I2CSettings();
+    export function createI2cSettings(clickBoardNum:clickBoardID, clickSlot:clickBoardSlot): I2CSettings {
+        return new I2CSettings(clickBoardNum, clickSlot);
    }
 
 
-    //% block="create SPI settings"
+    //% block=" $clickBoardNum $clickSlot"
     //% blockSetVariable="SPISettings"
     //% group="SPI"
     //% weight=110
-    export function createSPISettings(): SPIsetting {
-        return new SPIsetting();
+    export function createSPISettings(clickBoardNum:clickBoardID, clickSlot:clickBoardSlot): SPIsetting {
+        return new SPIsetting(clickBoardNum, clickSlot);
    }
 
-   //% block="create Pin settings"
+    //% block=" $clickBoardNum $clickSlot"
     //% blockSetVariable="PinSettings"
     //% group="PINs"
     //% weight=110
-    export function createPinSettings(): PinSettings {
-        return new PinSettings();
+    export function createPinSettings(clickBoardNum:clickBoardID, clickSlot:clickBoardSlot): PinSettings {
+        return new PinSettings(clickBoardNum, clickSlot);
    }
 
 
@@ -271,12 +295,155 @@ let PWM_PR_id = 2
 let PWM_channel_id
 let PWM_dutyCycle
 
+//Neopixel Function IDs
 
+let NEOPIXEL_ADD     =          0x01
+let NEOPIXEL_REMOVE    =        0x02
+let NEOPIXEL_SHOW   =           0x03
+let NEOPIXEL_HIDE    =          0x04
+let NEOPIXEL_CLEAR      =       0x05
+let NEOPIXEL_STRIP_WRITE_SINGLE_DATA =0x06
+let NEOPIXEL_STRIP_WRITE_BUFFER_DATA =0x07
+let NEOPIXEL_STRIP_READ_SINGLE_DATA  =0x08
+let NEOPIXEL_STRIP_READ_BUFFER_DATA  =0x09
 
 // ADC Function Ids
 let ADC_READ_id = 16
 
 
+export class peripheralSettings
+{
+    private clickBoardNumGlobalPeripheral:number
+    private clickSlotNumGlobalPeripheral:number
+    private clickAddress : number
+
+    constructor(clickBoardNum: clickBoardID, clickSlot:clickBoardSlot){
+        this.clickBoardNumGlobalPeripheral=clickBoardNum;
+        this.clickSlotNumGlobalPeripheral=clickSlot;
+        this.clickAddress = this.clickBoardNumGlobalPeripheral*3 + this.clickSlotNumGlobalPeripheral 
+    }
+
+    sendCommand(clickPin: clickIOPin,moduleID:number,functionID:number)
+    {
+ 
+        //Derive the address of the click port (0= on board 1=A 2=B on b.Board)(3 = on board, 4=A, 5=B on Expansion 1 etc)
+       
+        let dataBuff = pins.createBuffer(6);
+
+
+        dataBuff.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 1, this.clickAddress)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 2, moduleID)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 3, functionID)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 4, clickPin & 0x00FF)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 5, (clickPin & 0xFF00)>>8)
+
+
+        
+        pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, CLEAR_BBOARD_RX_BUFFER, false)
+        pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, dataBuff, false)
+        pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, EXECUTE_BBOARD_COMMAND, false)
+    }
+
+
+    sendData(clickPin: clickIOPin,moduleID:number,functionID:number, data: number[] )
+    {
+ 
+        //Derive the address of the click port (0= on board 1=A 2=B on b.Board)(3 = on board, 4=A, 5=B on Expansion 1 etc)
+       
+ 
+        let dataBuff = pins.createBuffer(6+data.length);
+        let dataBuffLength = dataBuff.length
+
+        dataBuff.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 1, this.clickAddress)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 2, moduleID)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 3, functionID)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 4, clickPin & 0x00FF)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 5, (clickPin & 0xFF00)>>8)
+
+        for(let i=0; i<dataBuffLength-6;i++)
+        {
+   
+            dataBuff.setNumber(NumberFormat.UInt8LE, i+6, data[i]);
+            
+        
+        }
+        
+            pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, CLEAR_BBOARD_RX_BUFFER, false)
+            pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, dataBuff, false)
+            pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, EXECUTE_BBOARD_COMMAND, false)
+    }
+    readData16(clickPin: clickIOPin,moduleID:number,functionID:number, data: number[] ):number
+    {
+ 
+        //Derive the address of the click port (0= on board 1=A 2=B on b.Board)(3 = on board, 4=A, 5=B on Expansion 1 etc)
+        let dataBuff = pins.createBuffer(6+data.length);
+        let dataBuffLength = dataBuff.length
+
+
+
+  
+        dataBuff.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 1, this.clickAddress)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 2, moduleID)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 3, functionID)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 4, clickPin & 0x00FF)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 5, (clickPin & 0xFF00)>>8)
+
+        for(let i=0; i<dataBuffLength-6;i++)
+        {
+   
+            dataBuff.setNumber(NumberFormat.UInt8LE, i+6, data[i]);
+            
+        
+        }
+
+        pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, CLEAR_BBOARD_RX_BUFFER, false)
+        pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, CLEAR_BBOARD_TX_BUFFER, false)
+        pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, dataBuff, false)
+        pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, EXECUTE_BBOARD_COMMAND, false)
+        control.waitMicros(500)
+        pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, READ_BBOARD_TX_BUFFER, false)
+        let TX_BUFFER_DATAbuf = pins.i2cReadBuffer(BBOARD_I2C_ADDRESS, 2, false)
+        return (TX_BUFFER_DATAbuf.getUint8(0) + TX_BUFFER_DATAbuf.getUint8(1) * 256)
+
+
+      
+    }
+
+    sendBuffer(clickPin: clickIOPin,moduleID:number,functionID:number, buff: Buffer )
+    {
+ 
+        //Derive the address of the click port (0= on board 1=A 2=B on b.Board)(3 = on board, 4=A, 5=B on Expansion 1 etc)
+        let dataBuffLength = buff.length
+
+        let dataBuff = pins.createBuffer(6+dataBuffLength);
+
+
+        dataBuff.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 1, this.clickAddress)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 2, moduleID)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 3, functionID)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 4, clickPin & 0x00FF)
+        dataBuff.setNumber(NumberFormat.UInt8LE, 5, (clickPin & 0xFF00)>>8)
+
+           
+
+   
+             dataBuff.write(6,buff)
+           
+        
+            pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, CLEAR_BBOARD_RX_BUFFER, false)
+            pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, dataBuff, false)
+            pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, EXECUTE_BBOARD_COMMAND, false)
+    }
+  
+
+
+    
+
+}
     
     export class IOSettings{
             
@@ -289,8 +456,9 @@ let ADC_READ_id = 16
         protected TOGGLE_id : number
         protected GPIOPULLENSET_id : number
         protected ODC_id : number
+        private clickBoardNumGlobalIO : number
 
-        constructor(){
+        constructor(clickBoardNum: clickBoardID, clickSlot: clickBoardSlot){
         this.DIRSET_id = 2
         this.DIRCLR_id = 3
         this.GPIO_id = 4
@@ -299,9 +467,12 @@ let ADC_READ_id = 16
         this.TOGGLE_id = 7
         this.GPIOPULLENSET_id = 0x0B
         this.ODC_id = 0x0D
+        this.clickBoardNumGlobalIO=clickBoardNum*3 + clickSlot;
         }
+
+
         //%blockId=set_IO_direction
-        //%block="$this Set $clickPin to $direction on click$clickBoardNum"
+        //%block="$this Set $clickPin to $direction"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% advanced=false
@@ -309,11 +480,12 @@ let ADC_READ_id = 16
         //% this.shadow=variables_get
         //% this.defl="IOSettings"
         //% group="IO"
-        setIODirection(clickPin: clickIOPin,direction: clickIODirection,clickBoardNum: clickBoardID ){
-            createIOSettings()
+        setIODirection(clickPin: clickIOPin,direction: clickIODirection){
+            
+            
             let GPIO_CONFIG_OUTPUT_PINS = pins.createBuffer(8)
             GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-            GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+            GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalIO)
             GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 2, GPIO_module_id)
             if(direction == clickIODirection.output)
             {
@@ -338,7 +510,7 @@ let ADC_READ_id = 16
         }
 
         //%blockId=Open_Drain_set
-        //%block="for $this $ODC_Enable on $clickPin on click$clickBoardNum"
+        //%block="for $this $ODC_Enable on $clickPin"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% advanced=false
@@ -346,14 +518,13 @@ let ADC_READ_id = 16
         //% this.shadow=variables_get
         //% this.defl="IOSettings"
         //% group="IO"
-        setOpenDrain(ODC_Enable: ODCEnable,clickPin: clickIOPin,clickBoardNum: clickBoardID ){
-
+        setOpenDrain(ODC_Enable: ODCEnable,clickPin: clickIOPin){
             let GPIO_CONFIG_OUTPUT_PINS = pins.createBuffer(7)
 
 
 
             GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-            GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+            GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalIO)
             GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 2, GPIO_module_id)
         
             GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 3, this.ODC_id)
@@ -373,7 +544,7 @@ let ADC_READ_id = 16
         }
 
         //%blockId=GPIO_pull_set
-        //%block="$this Set $clickPin to $pullDirection on click$clickBoardNum"
+        //%block="$this Set $clickPin to $pullDirection"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% advanced=false
@@ -382,14 +553,13 @@ let ADC_READ_id = 16
         //% this.defl="IOSettings"
         //% group="IO"
 
-        setPullDirection(clickPin: clickIOPin,pullDirection: IOPullDirection,clickBoardNum: clickBoardID ){
-
+        setPullDirection(clickPin: clickIOPin,pullDirection: IOPullDirection ){
             let GPIO_CONFIG_OUTPUT_PINS = pins.createBuffer(7)
 
 
 
             GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-            GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+            GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalIO)
             GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 2, GPIO_module_id)
         
             GPIO_CONFIG_OUTPUT_PINS.setNumber(NumberFormat.UInt8LE, 3, this.GPIOPULLENSET_id)
@@ -421,10 +591,12 @@ let ADC_READ_id = 16
     export class PWMSettings{
         pitchPin : number;
         pitchClick : number;
+        private clickBoardNumGlobalPWM:number;
 
-        constructor(){
+        constructor(clickBoardNum: clickBoardID, clickSlot: clickBoardSlot){
         this.pitchPin = clickPWMPin.PWM; 
         this.pitchClick = clickBoardID.one;
+        this.clickBoardNumGlobalPWM=clickBoardNum*3+clickSlot;
         }
 
         analogPitch(frequency:number,ms:number)
@@ -432,16 +604,16 @@ let ADC_READ_id = 16
       
             if (frequency <= 0) {
             
-            this.PWMOut(this.pitchPin,0,this.pitchClick);
+            this.PWMOut(this.pitchPin,0);
             } else {
-                this.PWMOut(this.pitchPin,70,this.pitchClick);
-                this.PWMFrequency(this.pitchPin,frequency*100,this.pitchClick);
+                this.PWMOut(this.pitchPin,70);
+                this.PWMFrequency(this.pitchPin,frequency*100);
             }
     
             if (ms > 0) {
                 control.waitMicros(ms*1000)
                 
-                this.PWMOut(this.pitchPin,0,this.pitchClick);
+                this.PWMOut(this.pitchPin,0);
                 // TODO why do we use wait_ms() here? it's a busy wait I think
                 basic.pause(5);
             }
@@ -450,7 +622,7 @@ let ADC_READ_id = 16
         }
 
         //%blockId=PWM_scaled
-        //%block="Set $this PWM on pin $clickPin to $PWMValue on click$clickBoardNum with max = $PWMMax"
+        //%block="Set $this PWM on pin $clickPin to $PWMValue with max = $PWMMax"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% advanced=true
@@ -458,13 +630,13 @@ let ADC_READ_id = 16
         //% this.shadow=variables_get
         //% this.defl="PWM"
         //% group="PWM"
-        PWMScaled( clickPin: clickPWMPin,PWMValue: number,clickBoardNum: clickBoardID,PWMMax:number){
+        PWMScaled( clickPin: clickPWMPin,PWMValue: number,PWMMax:number){
             let dutyCycle = PWMValue/PWMMax;
-            this.PWMOut(clickPin,dutyCycle*100,clickBoardNum);
+            this.PWMOut(clickPin,dutyCycle*100);
         }
 
-            //%blockId=PWM_out
-        //%block="Set $this PWM on pin $clickPin to $PWMValue on click$clickBoardNum"
+        //%blockId=PWM_out
+        //%block="Set $this PWM on pin $clickPin to $PWMValue"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% PWMValue.min=0 PWMValue.max=100 
@@ -473,7 +645,7 @@ let ADC_READ_id = 16
         //% this.shadow=variables_get
         //% this.defl="PWM"
         //% group="PWM"
-        PWMOut( clickPin: clickPWMPin,PWMValue: number,clickBoardNum: clickBoardID){
+        PWMOut( clickPin: clickPWMPin,PWMValue: number){
 
             let pinNum = 0; 
             let dutyCycle = 0;
@@ -483,7 +655,7 @@ let ADC_READ_id = 16
 
             let GPIO_SET_PWM_DUTY = pins.createBuffer(8);
             GPIO_SET_PWM_DUTY.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-            GPIO_SET_PWM_DUTY.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+            GPIO_SET_PWM_DUTY.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalPWM)
             GPIO_SET_PWM_DUTY.setNumber(NumberFormat.UInt8LE, 2, PWM_module_id)
             GPIO_SET_PWM_DUTY.setNumber(NumberFormat.UInt8LE, 3, PWM_VAL_id)
             GPIO_SET_PWM_DUTY.setNumber(NumberFormat.UInt8LE, 4, clickPin & 0x00FF)
@@ -503,7 +675,7 @@ let ADC_READ_id = 16
         }
 
         //%blockId=PWM_frequency
-        //%block="Set $this PWM frequency on pin $clickPin to $PWMfreq on click$clickBoardNum"
+        //%block="Set $this PWM frequency on pin $clickPin to $PWMfreq"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% advanced=false
@@ -511,14 +683,14 @@ let ADC_READ_id = 16
         //% this.shadow=variables_get
         //% this.defl="PWM"
         //% group="PWM"
-        PWMFrequency( clickPin: clickPWMPin,PWMfreq: number,clickBoardNum: clickBoardID){
+        PWMFrequency( clickPin: clickPWMPin,PWMfreq: number){
 
             let pinNum = 0; 
 
 
             let GPIO_SET_PWM_DUTY = pins.createBuffer(8);
             GPIO_SET_PWM_DUTY.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-            GPIO_SET_PWM_DUTY.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+            GPIO_SET_PWM_DUTY.setNumber(NumberFormat.UInt8LE, 1, this.pitchClick)
             GPIO_SET_PWM_DUTY.setNumber(NumberFormat.UInt8LE, 2, PWM_module_id)
             GPIO_SET_PWM_DUTY.setNumber(NumberFormat.UInt8LE, 3, PWM_PR_id)
             GPIO_SET_PWM_DUTY.setNumber(NumberFormat.UInt8LE, 4, clickPin & 0x00FF)
@@ -560,8 +732,9 @@ let ADC_READ_id = 16
         protected UART_READ_RX_DATA : number
         public UART_READ_RX_DATA_BYTES : number
         protected UART_CLEAR_RX_DATA : number
+        private clickBoardNumGlobalUART:number
 
-        constructor(){
+        constructor(clickBoardNum:clickBoardID, clickSlot:clickBoardSlot){
         this.UART_STATUS = 0
         this.UART_INTEN =  2
         this.UART_INTENCLR = 3
@@ -570,10 +743,11 @@ let ADC_READ_id = 16
         this.UART_READ_RX_DATA = 6
         this.UART_READ_RX_DATA_BYTES = 7
         this.UART_CLEAR_RX_DATA = 8
+        this.clickBoardNumGlobalUART=clickBoardNum*3+clickSlot;
 
         }
 
-       getUARTDataSize(clickBoardNum: clickBoardID):number{
+       getUARTDataSize():number{
     
     
         let UARTSizeBuf = pins.createBuffer(4)
@@ -582,7 +756,7 @@ let ADC_READ_id = 16
         let UART_RX_SIZE = 0
 
         UARTSizeBuf.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        UARTSizeBuf.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        UARTSizeBuf.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalUART)
         UARTSizeBuf.setNumber(NumberFormat.UInt8LE, 2, UART_module_id)
         UARTSizeBuf.setNumber(NumberFormat.UInt8LE, 3, this.UART_STATUS )
 
@@ -605,12 +779,12 @@ let ADC_READ_id = 16
     }
 
 
-    clearUARTRxBuffer(clickBoardNum: clickBoardID){
+    clearUARTRxBuffer(){
 
 
         let UART_CLEARRx_COMMAND = pins.createBuffer(5)
         UART_CLEARRx_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        UART_CLEARRx_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        UART_CLEARRx_COMMAND.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalUART)
         UART_CLEARRx_COMMAND.setNumber(NumberFormat.UInt8LE, 2, UART_module_id)
         UART_CLEARRx_COMMAND.setNumber(NumberFormat.UInt8LE, 3, this.UART_CLEAR_RX_DATA)
 
@@ -620,8 +794,8 @@ let ADC_READ_id = 16
             pins.i2cWriteBuffer(BBOARD_I2C_ADDRESS, EXECUTE_BBOARD_COMMAND, false)
     }
 
-       //%blockId=is_UART_Data_Avail
-    //%block="Is $this UART data available on click$clickBoardNum ?"
+    //%blockId=is_UART_Data_Avail
+    //%block="Is $this UART data available?"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -630,11 +804,11 @@ let ADC_READ_id = 16
     //% this.defl="UARTS"
     //% group="UART"
 
-    isUARTDataAvailable(clickBoardNum: clickBoardID):boolean {
+    isUARTDataAvailable():boolean {
 
       
       
-        if (this.getUARTDataSize(clickBoardNum)) 
+        if (this.getUARTDataSize()) 
         {
             
            return true;
@@ -642,17 +816,18 @@ let ADC_READ_id = 16
         }
      return false;
     }
- /**
+    
+    /**
     * Set the UART frequency
     * @param frequency the clock frequency, eg: 115200
     */
     //% weight=4 advanced=true
-    //% blockId=bBoard_UART_frequency block="Set $this the UART frequency %frequency on click$clickBoardNum"
+    //% blockId=bBoard_UART_frequency block="Set $this the UART frequency $frequency"
     //% blockNamespace=bBoard
     //% this.shadow=variables_get
     //% this.defl="UARTS"
     //% group="UART"
-    UARTFrequency(frequency:number,clickBoardNum:clickBoardID) {
+    UARTFrequency(frequency:number) {
         
         // (Note: BRG = Fp / baudrate)
         //(Note: Fp = 40000000)
@@ -662,7 +837,7 @@ let ADC_READ_id = 16
         
         let UART_WRITE1_COMMAND = pins.createBuffer(6)
         UART_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        UART_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        UART_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalUART)
         UART_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 2, UART_module_id)
         UART_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 3, this.UART_BAUD_id)
         UART_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 4, brg & 0x00FF)
@@ -675,8 +850,8 @@ let ADC_READ_id = 16
 
     }
 
-    //%blockId=send_UART_Buffer
-        //%block="$this Send buffer $Buf to click $clickBoardNum"
+        //%blockId=send_UART_Buffer
+        //%block="$this Send buffer $Buf"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% advanced=false
@@ -685,7 +860,7 @@ let ADC_READ_id = 16
         //% this.defl="UARTS"
         //% group="UART"
 
-        sendBuffer( Buf?: Buffer,clickBoardNum?: clickBoardID){
+        sendBuffer( Buf?: Buffer){
 
     
 
@@ -697,7 +872,7 @@ let ADC_READ_id = 16
             
 
                     UARTBuf.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-                    UARTBuf.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+                    UARTBuf.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalUART)
                     UARTBuf.setNumber(NumberFormat.UInt8LE, 2, UART_module_id)
                     UARTBuf.setNumber(NumberFormat.UInt8LE, 3, 5)
 
@@ -720,7 +895,7 @@ let ADC_READ_id = 16
    
 
     //%blockId=get_UART_Byte
-    //%block="Get $this Byte from UART on click%clickBoardNum"
+    //%block="Get $this Byte from UART"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -729,18 +904,18 @@ let ADC_READ_id = 16
     //% this.defl="UARTS"
     //% group="UART"
 
-    getUARTData(clickBoardNum: clickBoardID):string
+    getUARTData():string
     {
 
 
-        let UART_Rx_BuffSize  = this.getUARTDataSize(clickBoardNum);
+        let UART_Rx_BuffSize  = this.getUARTDataSize();
         let TX_BuffSize = 0
        
        
         let UARTDataBuf = pins.createBuffer(6)
 
         UARTDataBuf.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        UARTDataBuf.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        UARTDataBuf.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalUART)
         UARTDataBuf.setNumber(NumberFormat.UInt8LE, 2, UART_module_id)
         UARTDataBuf.setNumber(NumberFormat.UInt8LE, 3, this.UART_READ_RX_DATA_BYTES )
         UARTDataBuf.setNumber(NumberFormat.UInt8LE, 4, UART_Rx_BuffSize & 0x00FF )
@@ -768,8 +943,8 @@ let ADC_READ_id = 16
         return TX_BUFFER_DATAbuf.toString();
      }
 
-                //%blockId=send_UART_String
-        //%block="$this Send string $UARTString to click$clickBoardNum"
+        //%blockId=send_UART_String
+        //%block="$this Send string $UARTString"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% advanced=false
@@ -778,7 +953,7 @@ let ADC_READ_id = 16
         //% this.defl="UARTS"
         //% group="UART"
 
-        sendString( UARTString: string,clickBoardNum: clickBoardID){
+        sendString( UARTString: string){
             let remainingBytes = UARTString.length
             
             while( remainingBytes )
@@ -787,7 +962,7 @@ let ADC_READ_id = 16
                 let UARTBuf = pins.createBuffer(messageLength);
 
                 UARTBuf.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-                UARTBuf.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+                UARTBuf.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalUART)
                 UARTBuf.setNumber(NumberFormat.UInt8LE, 2, UART_module_id)
                 UARTBuf.setNumber(NumberFormat.UInt8LE, 3,  5)
 
@@ -815,13 +990,14 @@ let ADC_READ_id = 16
 
     ///Start of PinSettings
     export class PinSettings extends IOSettings{
-
-        constructor(){
-            super();
+        private clickBoardNumGlobalPin: number;
+        constructor(clickBoardNum:clickBoardID,clickSlot:clickBoardSlot){
+            super(clickBoardNum,clickSlot);
+            this.clickBoardNumGlobalPin=clickBoardNum*3+clickSlot;
         }
 
         //%blockId=digital_Read_Pin
-        //%block="$this Digital read pin $clickIOPin on click$clickBoardNum"
+        //%block="$this Digital read pin $clickIOPin"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% advanced=false
@@ -829,13 +1005,13 @@ let ADC_READ_id = 16
         //% this.shadow=variables_get
         //% this.defl="PinSettings"
         //% group="PINs"
-        digitalReadPin( clickPin: clickIOPin,clickBoardNum: clickBoardID):number
+        digitalReadPin( clickPin: clickIOPin):number
         {
             let pinStatus = 0;
             let READ_CLICKBOARD_DIGITAL_INPUTS = pins.createBuffer(6)
             let TX_BUFFER_DATAbuf = pins.createBuffer(2);
             READ_CLICKBOARD_DIGITAL_INPUTS.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-            READ_CLICKBOARD_DIGITAL_INPUTS.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+            READ_CLICKBOARD_DIGITAL_INPUTS.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalPin)
             READ_CLICKBOARD_DIGITAL_INPUTS.setNumber(NumberFormat.UInt8LE, 2, GPIO_module_id)
             READ_CLICKBOARD_DIGITAL_INPUTS.setNumber(NumberFormat.UInt8LE, 3, this.GPIO_id)
             READ_CLICKBOARD_DIGITAL_INPUTS.setNumber(NumberFormat.UInt8LE, 4, clickPin & 0x00FF)
@@ -864,7 +1040,7 @@ let ADC_READ_id = 16
         }
     
         //%blockId=write_pin
-        //%block="$this Write $value to pin $clickIOPin on click$clickBoardNum"
+        //%block="$this Write $value to pin $clickIOPin"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% advanced=false
@@ -873,15 +1049,15 @@ let ADC_READ_id = 16
         //% this.defl="PinSettings"
         //% group="PINs"
 
-        writePin(value: number, clickPin: clickIOPin,clickBoardNum: clickBoardID){
+        writePin(value: number, clickPin: clickIOPin){
         
             if(value > 0){
-                this.setPin(clickPin,clickBoardNum);
+                this.setPin(clickPin);
             
             }
 
             else{
-                this.clearPin(clickPin,clickBoardNum);
+                this.clearPin(clickPin);
             }
         
     
@@ -890,7 +1066,7 @@ let ADC_READ_id = 16
     
 
         //%blockId=set_pin
-        //%block="$this Set pin $clickPin on click$clickBoardNum"
+        //%block="$this Set pin $clickPin"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% advanced=false
@@ -899,12 +1075,12 @@ let ADC_READ_id = 16
         //% this.defl="PinSettings"
         //% group="PINs"
 
-        setPin(clickPin: clickIOPin,clickBoardNum: clickBoardID){
+        setPin(clickPin: clickIOPin){
 
         // 'Set clickboard output pins values HIGH' command
         let GPIO_SET_OUTPUT_PINS_HIGH = pins.createBuffer(8)
         GPIO_SET_OUTPUT_PINS_HIGH.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        GPIO_SET_OUTPUT_PINS_HIGH.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        GPIO_SET_OUTPUT_PINS_HIGH.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalPin)
         GPIO_SET_OUTPUT_PINS_HIGH.setNumber(NumberFormat.UInt8LE, 2, GPIO_module_id)
         GPIO_SET_OUTPUT_PINS_HIGH.setNumber(NumberFormat.UInt8LE, 3, this.SET_id)
         GPIO_SET_OUTPUT_PINS_HIGH.setNumber(NumberFormat.UInt8LE, 4, clickPin & 0x00FF)
@@ -921,7 +1097,7 @@ let ADC_READ_id = 16
         }
 
         //%blockId=clear_pin
-        //%block="$this Clear pin $clickIOPin on click$clickBoardNum"
+        //%block="$this Clear pin $clickIOPin"
         //% blockGap=7
         //% weight=90   color=#9E4894 icon=""
         //% advanced=false
@@ -930,7 +1106,7 @@ let ADC_READ_id = 16
         //% this.defl="PinSettings"
         //% group="PINs"
 
-        clearPin( clickPin: clickIOPin,clickBoardNum: clickBoardID){
+        clearPin( clickPin: clickIOPin){
         
         // 'Set clickboard output pins values LOW' command
 
@@ -938,7 +1114,7 @@ let ADC_READ_id = 16
         let GPIO_SET_OUTPUT_PINS_LOW = pins.createBuffer(8)
 
         GPIO_SET_OUTPUT_PINS_LOW.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        GPIO_SET_OUTPUT_PINS_LOW.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        GPIO_SET_OUTPUT_PINS_LOW.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardNumGlobalPin)
         GPIO_SET_OUTPUT_PINS_LOW.setNumber(NumberFormat.UInt8LE, 2, GPIO_module_id)
         GPIO_SET_OUTPUT_PINS_LOW.setNumber(NumberFormat.UInt8LE, 3, this.CLR_id)
         GPIO_SET_OUTPUT_PINS_LOW.setNumber(NumberFormat.UInt8LE, 4, clickPin & 0x00FF)
@@ -967,21 +1143,21 @@ let ADC_READ_id = 16
 
 
     //%blockId=getFirmwareVersion
-    //%block="Get firmware version of click%clickBoardNum"
+    //%block="Get firmware version of $clickBoardNum at slot $clickSlotNum"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
     //% group="_____________"
     
 
-    export function getFirmwareVersion(clickBoardNum: clickBoardID): number{
-
+    export function getFirmwareVersion(clickBoardNum: clickBoardID, clickSlotNum : clickBoardSlot): number{
+        let clickNumSlot=clickBoardNum*3+clickSlotNum
         let analogValue = 0;
 
 
         let GET_VERSION_COMMAND = pins.createBuffer(4)
         GET_VERSION_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        GET_VERSION_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        GET_VERSION_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickNumSlot)
         GET_VERSION_COMMAND.setNumber(NumberFormat.UInt8LE, 2, STATUS_module_id)
         GET_VERSION_COMMAND.setNumber(NumberFormat.UInt8LE, 3, FIRMWARE_VERSION_id)
 
@@ -1006,20 +1182,20 @@ let ADC_READ_id = 16
 
 
     //%blockId=Analog_Read
-    //%block="Analog read pin %clickPin on click%clickBoardNum"
+    //%block="Analog read pin %clickPin on $clickBoardNum at slot $clickSlotNum"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
     //% group="_____________"
 
-    export function analogRead(clickPin: clickADCPin, clickBoardNum: clickBoardID): number{
-
+    export function analogRead(clickPin: clickADCPin, clickBoardNum: clickBoardID, clickSlotNum : clickBoardSlot): number{
+        let clickNumSlot=clickBoardNum*3+clickSlotNum
         let analogValue = 0;
 
 
         let ADC_READ1_COMMAND = pins.createBuffer(6)
         ADC_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        ADC_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        ADC_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickNumSlot)
         ADC_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 2, ADC_module_id)
         ADC_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 3, ADC_READ_id)
         ADC_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 4, clickPin & 0x00FF)
@@ -1051,8 +1227,9 @@ let ADC_READ_id = 16
         protected  SPI_READBULK_CS_id : number
         public SPI_BAUD_id : number
         public SPI_CONFIG_CS_id : number
+        private clickBoardGlobalNumSPI : number
 
-        constructor(){
+        constructor(clickBoardNum:clickBoardID,clickSlot:clickBoardSlot){
         this.SPI_WRITE_id = 1
         this.SPI_READ_id = 2
         this.SPI_CONFIG_id = 3
@@ -1061,12 +1238,13 @@ let ADC_READ_id = 16
         this. SPI_READBULK_CS_id = 6
         this.SPI_BAUD_id = 7
         this.SPI_CONFIG_CS_id = 8
+        this.clickBoardGlobalNumSPI=clickBoardNum*3+clickSlot;
 
         }
  
         
     //%blockId=spi_Write
-    //%block="$this Write $value to SPI on click$clickBoardNum"
+    //%block="$this Write $value to SPI"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=true
@@ -1075,12 +1253,12 @@ let ADC_READ_id = 16
     //% this.defl="SPISettings"
     //% group="SPI"
 
-    SPIWrite(value: number, clickBoardNum: clickBoardID){
+    SPIWrite(value: number){
        
 
         let SPI_WRITE1_COMMAND = pins.createBuffer(5)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardGlobalNumSPI)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 2, SPI_module_id)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 3, this.SPI_WRITE_id)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 4, value)
@@ -1094,8 +1272,8 @@ let ADC_READ_id = 16
     }
 
 
-         //%blockId=spi_Write_array
-    //%block="$this Write array $arrayValues to SPI on click $clickBoardNum"
+    //%blockId=spi_Write_array
+    //%block="$this Write array $arrayValues to SPI"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -1104,12 +1282,12 @@ let ADC_READ_id = 16
     //% this.defl="SPISettings"
     //% group="SPI"
 
-    SPIWriteArray(arrayValues: number[],clickBoardNum: clickBoardID){
+    SPIWriteArray(arrayValues: number[]){
        
         let arrayLength = arrayValues.length
         let SPI_WRITE1_COMMAND = pins.createBuffer(4+arrayLength)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardGlobalNumSPI)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 2, SPI_module_id)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 3, this.SPI_WRITEBULK_id)
 
@@ -1133,12 +1311,12 @@ let ADC_READ_id = 16
     * @param frequency the clock frequency, eg: 1000000
     */
     //% help=pins/spi-frequency weight=4 advanced=true
-    //% blockId=bBoard_spi_frequency block="Set $this the SPI frequency $frequency on click$clickBoardNum"
+    //% blockId=bBoard_spi_frequency block="Set $this the SPI frequency $frequency"
     //% blockNamespace=bBoard
     //% this.shadow=variables_get
     //% this.defl="SPISettings"
     //% group="SPI"
-    spiFrequency(frequency:number,clickBoardNum:clickBoardID) {
+    spiFrequency(frequency:number) {
         
         // (Note: BRG = ( Fp / (2 * BaudRate) ) - 1   )
        // (Note: Fp = 40000000)
@@ -1148,7 +1326,7 @@ let ADC_READ_id = 16
         
         let SPI_WRITE1_COMMAND = pins.createBuffer(6)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardGlobalNumSPI)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 2, SPI_module_id)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 3, this.SPI_BAUD_id)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 4, brgl & 0x00FF)
@@ -1168,7 +1346,7 @@ let ADC_READ_id = 16
 
 
     //%blockId=spi_Write_buffer
-    //%block="$this Write buffer $bufferValues to SPI on click $clickBoardNum"
+    //%block="$this Write buffer $bufferValues to SPI"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -1176,12 +1354,12 @@ let ADC_READ_id = 16
     //% this.shadow=variables_get
     //% this.defl="SPISettings"
     //% group="SPI"
-    SPIWriteBuffer(bufferValues: Buffer, clickBoardNum: clickBoardID){
+    SPIWriteBuffer(bufferValues: Buffer){
        
         let bufferLength = bufferValues.length
         let SPI_WRITE1_COMMAND = pins.createBuffer(4+bufferLength)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardGlobalNumSPI)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 2, SPI_module_id)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 3, this.SPI_WRITEBULK_id)
         
@@ -1198,8 +1376,8 @@ let ADC_READ_id = 16
   
     }
 
-       //%blockId=spi_Mode_Select
-    //%block="Set $this SPI to $mode on click$clickBoardNum"
+    //%blockId=spi_Mode_Select
+    //%block="Set $this SPI to $mode"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -1208,7 +1386,7 @@ let ADC_READ_id = 16
     //% this.defl="SPISettings"
     //% group="SPI"
 
-    SPIModeSelect(mode: SPIMode, clickBoardNum: clickBoardID){
+    SPIModeSelect(mode: SPIMode){
         let SPI_CKE = 1
         let SPI_CKP = 0
 
@@ -1239,7 +1417,7 @@ let ADC_READ_id = 16
 
         let SPI_CONFIG_COMMAND = pins.createBuffer(6)
         SPI_CONFIG_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        SPI_CONFIG_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        SPI_CONFIG_COMMAND.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardGlobalNumSPI)
         SPI_CONFIG_COMMAND.setNumber(NumberFormat.UInt8LE, 2, SPI_module_id)
         SPI_CONFIG_COMMAND.setNumber(NumberFormat.UInt8LE, 3, this.SPI_CONFIG_id)
         SPI_CONFIG_COMMAND.setNumber(NumberFormat.UInt8LE, 4, SPI_CKE)
@@ -1255,7 +1433,7 @@ let ADC_READ_id = 16
 
 
     //%blockId=spi_Read
-    //%block="$this Read $numBytes SPI bytes on click$clickBoardNum"
+    //%block="$this Read $numBytes SPI bytes"
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -1264,14 +1442,14 @@ let ADC_READ_id = 16
     //% this.defl="SPISettings"
     //% group="SPI"
 
-    SPIread(numBytes: number, clickBoardNum: clickBoardID):number{
+    SPIread(numBytes: number):number{
    
         let READ_BBOARD_TX_BUFFER = pins.createBuffer(1)
         READ_BBOARD_TX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_READ_TX_BUFFER_DATA)
 
         let SPI_READ1_COMMAND = pins.createBuffer(5)
         SPI_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        SPI_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        SPI_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardGlobalNumSPI)
         SPI_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 2, SPI_module_id)
         SPI_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 3, this.SPI_READ_id)
         SPI_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 4, numBytes)
@@ -1293,19 +1471,19 @@ let ADC_READ_id = 16
         * Set the SPI Chip Select Pin
         */
         //% weight=4 advanced=true
-        //% blockId=bBoard_spi_CS block="Set $this the SPI CS Pin to $clickPin on click$clickBoardNum"
+        //% blockId=bBoard_spi_CS block="Set $this the SPI CS Pin to $clickPin"
         //% blockNamespace=bBoard
         //% this.shadow=variables_get
          //% this.defl="SPISettings"
          //% group="SPI"
 
-        spiCS(clickPin: clickIOPin,clickBoardNum:clickBoardID) {
+        spiCS(clickPin: clickIOPin) {
         
     
         
         let SPI_WRITE1_COMMAND = pins.createBuffer(6)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardGlobalNumSPI)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 2, SPI_module_id)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 3, this.SPI_CONFIG_CS_id)
         SPI_WRITE1_COMMAND.setNumber(NumberFormat.UInt8LE, 4, clickPin & 0x00FF)
@@ -1328,7 +1506,7 @@ let ADC_READ_id = 16
 
 
 
-        //End of SPIsetting functions
+    //End of SPIsetting functions
 
 
     ///START of I2CSettings
@@ -1339,12 +1517,14 @@ let ADC_READ_id = 16
             public I2C_READ_id : number
             public I2C_WRITE_NO_MEM_id : number
             public I2C_READ_NO_MEM_id : number
+            private clickBoardGlobalNumI2C : number
 
-            constructor(){
+            constructor(clickBoardNum:clickBoardID, clickSlot:clickBoardSlot ){
                 this.I2C_WRITE_id = 1
                 this.I2C_READ_id = 2
                 this.I2C_WRITE_NO_MEM_id = 3
                 this.I2C_READ_NO_MEM_id = 4
+                this.clickBoardGlobalNumI2C=clickBoardNum*3+clickSlot;
 
             }
 
@@ -1361,7 +1541,7 @@ let ADC_READ_id = 16
         //% group="I2C"
         
 
-        I2CreadNoMem(address:number, numBytes: number, clickBoardNum: clickBoardID):Buffer{
+        I2CreadNoMem(address:number, numBytes: number):Buffer{
     
             let READ_BBOARD_TX_BUFFER = pins.createBuffer(1)
             let TX_BUFFER_DATAbuf = pins.createBuffer(numBytes);
@@ -1369,7 +1549,7 @@ let ADC_READ_id = 16
 
             let I2C_READ1_COMMAND = pins.createBuffer(6)
             I2C_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-            I2C_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+            I2C_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardGlobalNumI2C)
             I2C_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 2, I2C_module_id)
             I2C_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 3, this.I2C_READ_NO_MEM_id)
             I2C_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 4, address)
@@ -1401,14 +1581,14 @@ let ADC_READ_id = 16
             
         
 
-            I2Cread(address:number, memAddress:number,numBytes: number, clickBoardNum: clickBoardID):number{
+            I2Cread(address:number, memAddress:number,numBytes: number):number{
         
                 let READ_BBOARD_TX_BUFFER = pins.createBuffer(1)
                 READ_BBOARD_TX_BUFFER.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_READ_TX_BUFFER_DATA)
 
                 let I2C_READ1_COMMAND = pins.createBuffer(7)
                 I2C_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-                I2C_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+                I2C_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardGlobalNumI2C)
                 I2C_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 2, I2C_module_id)
                 I2C_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 3, this.I2C_READ_id)
                 I2C_READ1_COMMAND.setNumber(NumberFormat.UInt8LE, 4, address)
@@ -1438,7 +1618,7 @@ let ADC_READ_id = 16
      * Write one number to a 7-bit I2C address.
      */
     //% blockId=i2c_write_number
-    //% block="i2c $this write number|at address $address|with value $value|of format $format on click$clickBoardNum|repeated $repeated" weight=6
+    //% block="i2c $this write number|at address $address|with value $value|of format $format | repeated $repeated" weight=6
     //% blockGap=7
     //% weight=90   color=#9E4894 icon=""
     //% advanced=false
@@ -1447,7 +1627,7 @@ let ADC_READ_id = 16
     //% this.defl="I2CSettings"
     //% group="I2C"
 
-    i2cWriteNumber(address:number, value: number, format:NumberFormat, clickBoardNum: clickBoardID, repeated: boolean){
+    i2cWriteNumber(address:number, value: number, format:NumberFormat, repeated: boolean){
       
         let I2C_WRITE = pins.createBuffer(6 + pins.sizeOf(format))
         let tempBuf = pins.createBuffer(pins.sizeOf(format))
@@ -1456,7 +1636,7 @@ let ADC_READ_id = 16
   
 
         I2C_WRITE.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        I2C_WRITE.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        I2C_WRITE.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardGlobalNumI2C)
         I2C_WRITE.setNumber(NumberFormat.UInt8LE, 2, I2C_module_id)
         I2C_WRITE.setNumber(NumberFormat.UInt8LE, 3, this.I2C_WRITE_id)
         I2C_WRITE.setNumber(NumberFormat.UInt8LE, 4, address)
@@ -1480,12 +1660,12 @@ let ADC_READ_id = 16
     //% help=pins/i2c-write-number blockGap=8
     //% blockNamespace=bBoard
 
-    i2cWriteBuffer(address:number, buf: Buffer, clickBoardNum: clickBoardID){
+    i2cWriteBuffer(address:number, buf: Buffer){
       
         let I2C_WRITE = pins.createBuffer(6 + buf.length)
         let disableStop = 0; //We want a stop bit sent at the end.
         I2C_WRITE.setNumber(NumberFormat.UInt8LE, 0, RX_TX_Settings.BBOARD_COMMAND_WRITE_RX_BUFFER_DATA)
-        I2C_WRITE.setNumber(NumberFormat.UInt8LE, 1, clickBoardNum)
+        I2C_WRITE.setNumber(NumberFormat.UInt8LE, 1, this.clickBoardGlobalNumI2C)
         I2C_WRITE.setNumber(NumberFormat.UInt8LE, 2, I2C_module_id)
         I2C_WRITE.setNumber(NumberFormat.UInt8LE, 3, this.I2C_WRITE_id)
         I2C_WRITE.setNumber(NumberFormat.UInt8LE, 4, address)
