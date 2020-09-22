@@ -783,6 +783,14 @@ declare namespace pins {
     function spiWrite(value: int32): int32;
 
     /**
+     * Write to and read from the SPI slave at the same time
+     * @param command Data to be sent to the SPI slave (can be null)
+     * @param response Data received from the SPI slave (can be null)
+     */
+    //% help=pins/spi-transfer argsNullable shim=pins::spiTransfer
+    function spiTransfer(command: Buffer, response: Buffer): void;
+
+    /**
      * Set the SPI frequency
      * @param frequency the clock frequency, eg: 1000000
      */
@@ -1037,6 +1045,22 @@ declare namespace control {
      */
     //% deprecated=1 shim=control::createBufferFromUTF8
     function createBufferFromUTF8(str: string): Buffer;
+}
+declare namespace light {
+
+    /**
+     * Sends a color buffer to a light strip
+     **/
+    //% advanced=true
+    //% shim=light::sendWS2812Buffer
+    function sendWS2812Buffer(buf: Buffer, pin: int32): void;
+
+    /**
+     * Sets the light mode of a pin
+     **/
+    //% advanced=true
+    //% shim=light::setMode
+    function setMode(pin: int32, mode: int32): void;
 }
 
 // Auto-generated. Do not edit. Really.
