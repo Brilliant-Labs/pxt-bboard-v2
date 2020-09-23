@@ -11,9 +11,9 @@
         "type": "git",
         "url": "git+https://github.com/Brilliant-Labs/pxt-microbit-v2.git"
     },
-  "author": "Brilliant Labs",
+    "author": "Brilliant Labs",
     "license": "MIT",
-  "homepage": "https://www.brilliantlabs.ca",
+    "homepage": "https://www.brilliantlabs.ca",
     "files": [
         "README.md",
         "pxtarget.json",

@@ -55,7 +55,8 @@
         "sendbuffer.s",
         "light.cpp",
         "parts/speaker.svg",
-        "parts/headphone.svg"
+        "parts/headphone.svg",
+        "bBoard.ts"
     ],
     "testFiles": [],
     "public": true,
