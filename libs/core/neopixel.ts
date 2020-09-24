@@ -91,8 +91,8 @@ namespace neopixel {
     //% block=" $clickBoardNum $clickSlot"
     //% blockSetVariable="Strip"
     //% weight=110
-    export function createButton_G(clickBoardNum: clickBoardID, clickSlot:clickBoardSlot): Strip {
-        return new Strip(clickBoardNum, clickSlot);
+    export function createButton_G(clickBoardNum: clickBoardID, clickSlot:clickBoardSlot, pin: neoPin, numleds: number, mode: NeoPixelMode): Strip {
+        return new Strip(clickBoardNum, clickSlot, pin, numleds, mode);
     }
 
 
@@ -128,11 +128,19 @@ let NEOPIXEL_STRIP_READ_BUFFER_DATA  =0x09
 
         private clickBoardNumGlobal:number
         private clickSlotNumGlobal:number
+        private pinGlobal:neoPin
+        private numledsGlobal:number
+        private modeGlobal:NeoPixelMode
     
-        constructor(clickBoardNum: clickBoardID, clickSlot:clickBoardSlot){
+        constructor(clickBoardNum: clickBoardID, clickSlot:clickBoardSlot, pin: neoPin, numleds: number, mode: NeoPixelMode){
             super(clickBoardNum, clickSlot)
             this.clickBoardNumGlobal=clickBoardNum;
             this.clickSlotNumGlobal=clickSlot;
+            this.pinGlobal=pin
+            this.numledsGlobal=numleds
+            this.modeGlobal=mode
+            this.createNeopixel(pin, numleds, mode)
+
         }
 
         /**
@@ -400,11 +408,11 @@ let NEOPIXEL_STRIP_READ_BUFFER_DATA  =0x09
                     : Math.idiv(255 * k * k, (mid * mid));
                 serial.writeLine(k + ":" + br);
                 let ledoffset0:number =ledoffset + 0
-                const r = (buf[ledoffset0] * br) >> 8; buf[ledoffset + 0] = r;
-                const g = (buf[ledoffset + 1] * br) >> 8; buf[ledoffset + 1] = g;
-                const b = (buf[ledoffset + 2] * br) >> 8; buf[ledoffset + 2] = b;
+                const r = (buf.getNumber(NumberFormat.UInt8LE,ledoffset0) * br) >> 8; buf.setNumber(NumberFormat.UInt8LE, (ledoffset + 0), r);
+                const g = (buf.getNumber(NumberFormat.UInt8LE,ledoffset + 1) * br) >> 8; buf.setNumber(NumberFormat.UInt8LE,ledoffset + 1, g);
+                const b = (buf.getNumber(NumberFormat.UInt8LE,ledoffset + 2) * br) >> 8; buf.setNumber(NumberFormat.UInt8LE,ledoffset + 2, b);
                 if (stride == 4) {
-                    const w = (buf[ledoffset + 3] * br) >> 8; buf[ledoffset + 3] = w;
+                    const w = (buf.getNumber(NumberFormat.UInt8LE,ledoffset + 3) * br) >> 8;  buf.setNumber(NumberFormat.UInt8LE,ledoffset + 3, w);
                 }
             }
         }
@@ -422,7 +430,7 @@ let NEOPIXEL_STRIP_READ_BUFFER_DATA  =0x09
         range(start: number, length: number): Strip {
             start = start >> 0;
             length = length >> 0;
-            let strip = new Strip(this.clickBoardNumGlobal, this.clickSlotNumGlobal);
+            let strip = new Strip(this.clickBoardNumGlobal, this.clickSlotNumGlobal,  this.pinGlobal, this.numledsGlobal, this.modeGlobal);
             strip.buf = this.buf;
             strip.pin = this.pin;
             strip.brightness = this.brightness;
@@ -487,7 +495,7 @@ let NEOPIXEL_STRIP_READ_BUFFER_DATA  =0x09
             for (let i = this.start; i < end; ++i) {
                 const ledoffset = i * stride;
                 for (let j = 0; j < stride; ++j) {
-                    p += this.buf[i + j];
+                    p += this.buf.getNumber(NumberFormat.UInt8LE, i + j);
                 }
             }
             return Math.idiv(this.length(), 2) /* 0.5mA per neopixel */
@@ -496,13 +504,13 @@ let NEOPIXEL_STRIP_READ_BUFFER_DATA  =0x09
 
         private setBufferRGB(offset: number, red: number, green: number, blue: number): void {
             if (this._mode === NeoPixelMode.RGB_RGB) {
-                this.buf[offset + 0] = red;
-                this.buf[offset + 1] = green;
+                this.buf.setNumber(NumberFormat.UInt8LE,offset + 0, red);
+                this.buf.setNumber(NumberFormat.UInt8LE,offset + 1, green);
             } else {
-                this.buf[offset + 0] = green;
-                this.buf[offset + 1] = red;
+                this.buf.setNumber(NumberFormat.UInt8LE,offset + 0, green);
+                this.buf.setNumber(NumberFormat.UInt8LE,offset + 1, red);
             }
-            this.buf[offset + 2] = blue;
+            this.buf.setNumber(NumberFormat.UInt8LE,offset + 2, blue);
         }
 
         private setAllRGB(rgb: number) {
@@ -534,7 +542,7 @@ let NEOPIXEL_STRIP_READ_BUFFER_DATA  =0x09
             let end = this.start + this._length;
             for (let i = this.start; i < end; ++i) {
                 let ledoffset = i * 4;
-                buf[ledoffset + 3] = white;
+                buf.setNumber(NumberFormat.UInt8LE,ledoffset + 3, white);
             }
         }
         private setPixelRGB(pixeloffset: number, rgb: number): void {
@@ -572,21 +580,12 @@ let NEOPIXEL_STRIP_READ_BUFFER_DATA  =0x09
                 white = (white * br) >> 8;
             }
             let buf = this.buf;
-            buf[pixeloffset + 3] = white;
+            buf.setNumber(NumberFormat.UInt8LE,pixeloffset + 3, white);
         }
 
-    /**
-     * Create a new NeoPixel driver for `numleds` LEDs.
-     * @param pin the pin where the neopixel is connected.
-     * @param numleds number of leds in the strip, eg: 24,30,60,64
-     */
-    //% blockId="neopixel_create" block="$this| $pin|with $numleds|leds as $mode| on "
-    //% weight=90 blockGap=8
-    //% parts="neopixel"
-    //% trackArgs=0,2
-    //% blockSetVariable=Strip
+
     createNeopixel(pin: neoPin, numleds: number, mode: NeoPixelMode): Strip {
-        let strip = new Strip(this.clickBoardNumGlobal, this.clickSlotNumGlobal);
+        let strip = new Strip(this.clickBoardNumGlobal, this.clickSlotNumGlobal,  this.pinGlobal, this.numledsGlobal, this.modeGlobal);
 
         if(pin >=100 && pin <=120)
         {

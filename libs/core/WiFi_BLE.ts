@@ -245,7 +245,7 @@ namespace WiFi_BLE {
     //% blockSetVariable="WiFi_BLE"
     //% weight=110
     export function createWiFiBLE(clickBoardNum: clickBoardID, clickSlot:clickBoardSlot): WiFi_BLE {
-        return new this.WiFi_BLE(clickBoardNum, clickSlot);
+        return new WiFi_BLE(clickBoardNum, clickSlot);
     }
 
     let MQTTMessageObject ={
@@ -1429,6 +1429,7 @@ namespace WiFi_BLE {
   
         //% blockId=createVariable
         //% block="$this| Create Variable -> Api Key:%Key Name %Name on click%clickBoardNum"
+        //% this.defl="WiFi_BLE"
         CreateVariable(Key: string, Name: string): void {
             // Add code here
             let getData ="\{\r\n\"key\": \"9qvfccbdk0jrgfeh\",\r\n\"cmd\": \"CREATE_VARIABLE\",\r\n\"name\": \"msdsdfsfd\",\r\n\"value\": \"Hello my name is Josiah\"\r\n}\";"
