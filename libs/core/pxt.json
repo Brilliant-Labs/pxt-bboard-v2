@@ -56,7 +56,15 @@
         "light.cpp",
         "parts/speaker.svg",
         "parts/headphone.svg",
-        "bBoard.ts"
+        "bBoard.ts",
+        "bBoardMic.ts",
+        "bBoardMotor.ts",
+        "bBoardMusic.ts",
+        "neopixel.ts",
+        "ws2812b.ts",
+        "sendBuffer.asm",
+        "wifi_ble.ts"
+
     ],
     "testFiles": [],
     "public": true,
